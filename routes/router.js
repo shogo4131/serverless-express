@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const AWS = require('aws-sdk');
+AWS.config.update({ region: 'ap-northeast-1' });
 
 const dynamoOptions =
   process.env.NODE_ENV === 'development'
@@ -19,8 +20,11 @@ router.get('/', (req, res) => {
 
 router.get('/users', (req, res) => {
   documentClient
-    .scan({
+    .get({
       TableName: 'Users',
+      Key: {
+        name: 'users',
+      },
     })
     .promise()
     .then((result) => res.json(result))

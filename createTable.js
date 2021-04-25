@@ -15,6 +15,10 @@ const params = {
     ReadCapacityUnits: 1,
     WriteCapacityUnits: 1,
   },
+  Item: {
+    messageId: requestId,
+    message: 'Hello from Lambda2',
+  },
 };
 
 dynamoDB.createTable(params, (err, data) => {
